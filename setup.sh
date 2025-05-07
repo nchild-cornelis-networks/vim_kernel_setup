@@ -36,6 +36,12 @@ fi
 if [ ! -f ~/.vimrc ] || ! grep -q t_Co ~/.vimrc ; then 
 	echo "set t_Co=256" >> ~/.vimrc
 fi
+
+# use absolute paths in cscope
+if ! grep -q csre ~/.vimrc ; then 
+	echo "set csre" >> ~/vimrc
+fi
+
 if ! grep -q t_SI ~/.vimrc ; then
 	cat >> ~/.vimrc << EOF
   " use an orange cursor in insert mode
@@ -76,6 +82,38 @@ if [ ! -d ~/.vim/plugin ] || [ ! -f ~/.vim/plugin/linuxsty.vim ]; then
 	pushd ~/.vim/plugin/
 	curl -o linuxsty.vim  https://www.vim.org/scripts/download_script.php?src_id=23732
 	popd
+fi
+
+# https://github.com/preservim/nerdtree , see dir tree structure
+if [ ! -d $vim_folder/start/nerdtree ]; then
+	pushd $vim_folder/start
+	git clone git@github.com:preservim/nerdtree.git
+	echo "nmap <F5> :NerdTreeToggle<CR>" >> ~/.vimrc
+	popd
+fi
+# https://github.com/preservim/tagbar# , see ctags in file
+if [ ! -d $vim_folder/start/tagbar ]; then
+        pushd $vim_folder/start
+        git clone git@github.com:preservim/tagbar.git
+        popd
+	echo "nmap <F6> :TagbarToggle<CR>" >> ~/.vimrc
+fi
+
+# https://github.com/vim-airline/vim-airline# , better bottom line
+if [ ! -d $vim_folder/start/vim-airline ]; then
+        pushd $vim_folder/start
+        git clone git@github.com:vim-airline/vim-airline.git
+        popd
+fi
+
+# color theme https://github.com/morhetz/gruvbox
+if [ ! -d $vim_folder/start/gruvbox ]; then
+	pushd $vim_folder/start
+	git clone git@github.com:morhetz/gruvbox.git
+	popd
+	echo "colorscheme gruvbox" >> ~/.vimrc
+	echo "set number" >> ~/.vimrc # sliding line numbers in here
+	echo "set bg=dark" >> ~/.vimrc 
 fi
 
 exit 1
