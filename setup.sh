@@ -116,6 +116,26 @@ if [ ! -d $vim_folder/start/gruvbox ]; then
 	echo "set bg=dark" >> ~/.vimrc 
 fi
 
+# https://github.com/tpope/vim-fugitive , git commands in vim
+if [ ! -d $vim_folder/start/vim-fugitive ]; then
+	pushd $vim_folder/start
+	git clone https://github.com/tpope/vim-fugitive.git
+	vim -u NONE -c "helptags fugitive/doc" -c q
+	popd
+fi
+ 
+# this thing works pretty bad with the kernel tbh, may remove this
+# YouCompleteMe Code completion https://github.com/ycm-core/YouCompleteMe?tab=readme-ov-file#linux-64-bit
+if [ ! -d $vim_folder/start/YouCompleteMe ] && [ $vim_ver -gt 8 ]; then
+	sudo $pm install cmake gcc-c++ make python3-devel
+	pushd $vim_folder/start/
+	git clone git@github.com:ycm-core/YouCompleteMe.git
+	cd YouCompleteMe
+	git submodule update --init --recursive
+	python3 install.py --clangd-completer
+	popd
+		
+fi
 exit 1
 echo "Building tags and cscope"
 pushd $KERN
