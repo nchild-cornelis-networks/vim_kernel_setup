@@ -88,7 +88,7 @@ fi
 if [ ! -d $vim_folder/start/nerdtree ]; then
 	pushd $vim_folder/start
 	git clone git@github.com:preservim/nerdtree.git
-	echo "nmap <F5> :NerdTreeToggle<CR>" >> ~/.vimrc
+	echo "nmap <F5> :NERDTreeToggle<CR>" >> ~/.vimrc
 	popd
 fi
 # https://github.com/preservim/tagbar# , see ctags in file
