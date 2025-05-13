@@ -39,7 +39,7 @@ fi
 
 # use absolute paths in cscope
 if ! grep -q csre ~/.vimrc ; then 
-	echo "set csre" >> ~/vimrc
+	echo "set csre" >> ~/.vimrc
 fi
 
 if ! grep -q t_SI ~/.vimrc ; then
