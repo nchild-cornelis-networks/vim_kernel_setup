@@ -62,6 +62,7 @@ if [ ! -d $vim_folder ]; then
 	pushd $vim_folder/start/
 	echo cloning https://github.com/joe-skb7/cscope-maps.git
 	git clone https://github.com/joe-skb7/cscope-maps.git
+	echo 'set splitright' >> ~/.vimrc
 	popd
 fi
 
@@ -123,19 +124,27 @@ if [ ! -d $vim_folder/start/vim-fugitive ]; then
 	vim -u NONE -c "helptags fugitive/doc" -c q
 	popd
 fi
+
+# https://github.com/RRethy/vim-illuminate, underline current cursor
+if [ ! -d $vim_folder/start/vim-illuminate ]; then
+	pushd $vim_folder/start
+	git clone git@github.com:RRethy/vim-illuminate.git
+	popd
+	echo "hi link illuminatedWord PmenuSel" >> ~/.vimrc
+fi
  
 # this thing works pretty bad with the kernel tbh, may remove this
 # YouCompleteMe Code completion https://github.com/ycm-core/YouCompleteMe?tab=readme-ov-file#linux-64-bit
-if [ ! -d $vim_folder/start/YouCompleteMe ] && [ $vim_ver -gt 8 ]; then
-	sudo $pm install cmake gcc-c++ make python3-devel
-	pushd $vim_folder/start/
-	git clone git@github.com:ycm-core/YouCompleteMe.git
-	cd YouCompleteMe
-	git submodule update --init --recursive
-	python3 install.py --clangd-completer
-	popd
-		
-fi
+#if [ ! -d $vim_folder/start/YouCompleteMe ] && [ $vim_ver -gt 8 ]; then
+#	sudo $pm install cmake gcc-c++ make python3-devel
+#	pushd $vim_folder/start/
+#	git clone git@github.com:ycm-core/YouCompleteMe.git
+#	cd YouCompleteMe
+#	git submodule update --init --recursive
+#	python3 install.py --clangd-completer
+#	popd		
+#fi
+
 exit 1
 echo "Building tags and cscope"
 pushd $KERN
