@@ -114,6 +114,7 @@ if [ ! -d $vim_folder/start/gruvbox ]; then
 	popd
 	echo "colorscheme gruvbox" >> ~/.vimrc
 	echo "set number" >> ~/.vimrc # sliding line numbers in here
+	echo 'nmap <F7> :set number!<CR>' >> ~/.vimrc
 	echo "set bg=dark" >> ~/.vimrc 
 fi
 
