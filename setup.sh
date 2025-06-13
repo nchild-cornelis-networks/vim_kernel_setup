@@ -146,6 +146,22 @@ fi
 #	popd		
 #fi
 
+# add F3-F4 to navigate cscope results
+# using <F2> and <S-F2> to open and close the results list
+if ! grep -q cscopequickfix ~/.vimrc ; then
+	cat >> ~/.vimrc << EOF
+" use f3 and f4 to navigate cscope results
+set cscopequickfix=s-,c-,d-,i-,t-,e-
+nmap <F4> :cn<CR>
+nmap <F3> :cp<CR>
+nmap <F2> :cw<CR>
+nmap <S-F2> :ccl<CR>
+augroup qf
+    autocmd!
+    autocmd QuickFixCmdPost * cwindow
+augroup END
+EOF
+fi
 exit 1
 echo "Building tags and cscope"
 pushd $KERN
